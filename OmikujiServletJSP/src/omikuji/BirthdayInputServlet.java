@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,14 +39,13 @@ public class BirthdayInputServlet extends HttpServlet {
         CheckBirthday checkBirthday = new CheckBirthday();
         check = checkBirthday.checkBirthday(birthday);
 
-        //誕生日の形式が間違っている場合
-        while (!check) {
-            System.out.println("正しい形式で誕生日を入力してください。");
-            System.out.print("誕生日を入力してください：");//直すべき
+        if (!check) {
+            request.setAttribute("errorMsg", "正しい生年月日を入力してください。");
+            RequestDispatcher dispatcher = request
+                .getRequestDispatcher("/omikuji");
+            dispatcher.forward(request, response);
+          }
 
-            //もう一度チェックを実施
-            check = checkBirthday.checkBirthday(birthday);
-        }
 
         //占い日を指定
         Date date = new Date(); // 今日の日付
