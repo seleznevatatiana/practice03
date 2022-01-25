@@ -29,6 +29,7 @@ public class BirthdayInputServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
 
+
         // 日本語を表示するので、charsetにUTF-8を指定
         response.setContentType("text/html; charset=UTF-8");
 
@@ -41,9 +42,8 @@ public class BirthdayInputServlet extends HttpServlet {
 
         if (!check) {
             request.setAttribute("errorMsg", "正しい生年月日を入力してください。");
-            RequestDispatcher dispatcher = request
-                .getRequestDispatcher("/omikuji");
-            dispatcher.forward(request, response);
+            RequestDispatcher dispatcher2 = request.getRequestDispatcher("/omikuji");
+            dispatcher2.forward(request, response);
           }
 
 
@@ -165,7 +165,9 @@ public class BirthdayInputServlet extends HttpServlet {
 
             //結果を出力
             System.out.println(omikuji.disp());
-            //            return;
+
+            request.setAttribute("omikuji", omikuji);
+            request.getRequestDispatcher("/WEB-INF/Omikuji.jsp").forward(request, response);
 
         }
 
