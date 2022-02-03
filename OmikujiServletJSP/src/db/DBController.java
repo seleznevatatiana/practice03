@@ -141,8 +141,8 @@ public class DBController {
             preparedStatement.setString(1, uranaiDate);
             preparedStatement.setString(2, birthday);
 //            preparedStatement.setString(3, omikuji.omikujiId);
-            preparedStatement.setString(4, "タチアナ");
-            preparedStatement.setString(5, "タチアナ");
+//            preparedStatement.setString(4, "タチアナ");
+//            preparedStatement.setString(5, "タチアナ");
 
             // SQL文を実行
             int cnt4 = preparedStatement.executeUpdate();
