@@ -173,7 +173,13 @@ public class BirthdayInputServlet extends HttpServlet {
             //結果を出力
             System.out.println(omikuji.disp());
 
-            request.setAttribute("omikuji", omikuji);
+            OmikujiBean bean = new OmikujiBean();
+            bean.setUnsei(omikuji.getUnsei());
+            bean.setNegaigoto(omikuji.getNegaigoto());
+            bean.setAkinai(omikuji.getAkinai());
+            bean.setGakumon(omikuji.getGakumon());
+
+            request.setAttribute("omikujiBean", bean);
             request.getRequestDispatcher("/WEB-INF/Omikuji.jsp").forward(request, response);
 
         }

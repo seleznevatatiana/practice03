@@ -1,5 +1,5 @@
 <%@ page import= "omikuji.OmikujiBean" %>
-<jsp:useBean id="omikuji" class="omikuji.OmikujiBean" scope="request" />
+<jsp:useBean id="omikujiBean" class="omikuji.OmikujiBean" scope="request" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -11,10 +11,10 @@
 </head>
 <body>
 <p>
-今日の運勢は<%= omikuji.getUnsei() %>です！<br>
-願い事：<%=omikuji.getNegaigoto()%><br>
-商い：<%=omikuji.getAkinai()%><br>
-学問：<%=omikuji.getGakumon()%><br>
+今日の運勢は<%= omikujiBean.getUnsei() %>です！<br>
+願い事：<%=omikujiBean.getNegaigoto()%><br>
+商い：<%=omikujiBean.getAkinai()%><br>
+学問：<%=omikujiBean.getGakumon()%><br>
 </p>
 </body>
 </html>

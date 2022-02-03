@@ -99,6 +99,42 @@ public abstract class Omikuji implements Fortune{
     public void setCreatedDate(java.sql.Timestamp createdDate) {
         this.createdDate = createdDate;
     }
+    /**
+     * @return negaigoto
+     */
+    public String getNegaigoto() {
+        return negaigoto;
+    }
+    /**
+     * @return akinai
+     */
+    public String getAkinai() {
+        return akinai;
+    }
+    /**
+     * @return gakumon
+     */
+    public String getGakumon() {
+        return gakumon;
+    }
+    /**
+     * @return unseiId
+     */
+    public String getUnseiId() {
+        return unseiId;
+    }
+    /**
+     * @return omikujiId
+     */
+    public String getOmikujiId() {
+        return omikujiId;
+    }
+    /**
+     * @return unsei
+     */
+    public String getUnsei() {
+        return unsei;
+    }
 
     public String disp() {
         String disp;
@@ -116,6 +152,7 @@ public abstract class Omikuji implements Fortune{
 
         return sb.toString();
         }
+
 
     }
 
