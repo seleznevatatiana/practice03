@@ -1,5 +1,5 @@
-<%@ page import= "omikuji.Omikuji" %>
-<jsp:useBean id="omikuji" class="omikuji.Omikuji" scope="request" />
+<%@ page import= "omikuji.OmikujiBean" %>
+<jsp:useBean id="omikuji" class="omikuji.OmikujiBean" scope="request" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 

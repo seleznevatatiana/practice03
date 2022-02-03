@@ -26,7 +26,7 @@ import db.DBManager;
 public class BirthdayInputServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
 
 
@@ -62,6 +62,13 @@ public class BirthdayInputServlet extends HttpServlet {
         } catch (Exception e){
 
         }
+//        try {
+//
+//            // 結果テーブルからデータを取り出す
+//            db.DBController.getFortune(birthday, uranaiDate, omikujiId);
+//            } catch (Exception e){
+//
+//            }
 
         Omikuji omikuji = null;
 
@@ -143,9 +150,9 @@ public class BirthdayInputServlet extends HttpServlet {
                 omikuji = getInstance(resultSet2.getString("unsei_name"));
                 omikuji.setUnsei();
                 omikuji.setOmikujiId(omikujiId);
-                omikuji.setNegaigoto(resultSet2.getString("negaigoto"));//setterを利用して書き換える
-                omikuji.akinai = resultSet2.getString("akinai");
-                omikuji.gakumon = resultSet2.getString("gakumon");
+                omikuji.setNegaigoto(resultSet2.getString("negaigoto"));
+                omikuji.setAkinai(resultSet2.getString("akinai"));
+                omikuji.setGakumon(resultSet2.getString("gakumon"));
 
                 // DBに接続
                 connection = DBManager.getConnection();
