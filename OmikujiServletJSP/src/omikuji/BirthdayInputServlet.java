@@ -29,7 +29,6 @@ public class BirthdayInputServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
 
-
         // 日本語を表示するので、charsetにUTF-8を指定
         response.setContentType("text/html; charset=UTF-8");
 
@@ -58,7 +57,7 @@ public class BirthdayInputServlet extends HttpServlet {
         try {
 
         // 結果テーブルからデータを取り出す
-        db.DBController.selectFromResult(birthday, uranaiDate, omikujiId);
+        db.DBController.selectFromResult(birthday, uranaiDate, omikujiId);//resultDAO
         } catch (Exception e){
 
         }
@@ -96,12 +95,12 @@ public class BirthdayInputServlet extends HttpServlet {
 
                 //読み込みファイルのインスタンス生成
                 //ファイル名を指定する
-                fi = new FileInputStream("src/omikuji/fortune.csv");
+                fi = new FileInputStream("/OmikujiServletJSP/src/omikuji/fortune.csv"); //csvReaderを呼び出す(omikujiBeanを使う)
                 is = new InputStreamReader(fi);
                 br = new BufferedReader(is);
 
                 // readLineで一行ずつ読み込む
-                String line; // 読み　込み行
+                String line; // 読み込み行
                 String[] data; // 分割後のデータを保持する配列
 
                 while ((line = br.readLine()) != null) {
@@ -111,7 +110,8 @@ public class BirthdayInputServlet extends HttpServlet {
                     // DBに接続
                     connection = DBManager.getConnection();
                     // ステートメントを作成
-                    preparedStatement = connection.prepareStatement(ConstantSQL.SQL_INSERT_OMIKUJI);
+                    preparedStatement = connection.prepareStatement(ConstantSQL.SQL_INSERT_OMIKUJI);//omikujiDAO
+                  //csvReaderを呼び出す
                     //入力値をバインド
                     preparedStatement.setString(1, data[2]);
                     preparedStatement.setString(2, data[1]);
@@ -157,7 +157,7 @@ public class BirthdayInputServlet extends HttpServlet {
                 // DBに接続
                 connection = DBManager.getConnection();
                 // ステートメントを作成
-                preparedStatement = connection.prepareStatement(ConstantSQL.SQL_INSERT_RESULT);
+                preparedStatement = connection.prepareStatement(ConstantSQL.SQL_INSERT_RESULT);//resultDAO
                 //入力値をバインド
                 //getを使う
                 preparedStatement.setString(1, uranaiDate);
@@ -169,9 +169,6 @@ public class BirthdayInputServlet extends HttpServlet {
                 // SQL文を実行
                 int cnt4 = preparedStatement.executeUpdate();
             }
-
-            //結果を出力
-            System.out.println(omikuji.disp());
 
             OmikujiBean bean = new OmikujiBean();
             bean.setUnsei(omikuji.getUnsei());

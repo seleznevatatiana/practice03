@@ -13,5 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/Users/tatiana/git/practice03/OmikujiServletJSP/WebContent/WEB-INF/lib/postgresql-42.2.23.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
