@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>今日の運勢</title>
 </head>
-<body>
+<body style="background-color:pink">
 <p>
 今日の運勢は<%= omikujiBean.getUnsei() %>です！<br>
 願い事：<%=omikujiBean.getNegaigoto()%><br>

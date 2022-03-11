@@ -57,17 +57,10 @@ public class BirthdayInputServlet extends HttpServlet {
         try {
 
         // 結果テーブルからデータを取り出す
-        db.DBController.selectFromResult(birthday, uranaiDate, omikujiId);//resultDAO
+       resultDAO.selectFromResult(birthday, uranaiDate, omikujiId);
         } catch (Exception e){
 
         }
-//        try {
-//
-//            // 結果テーブルからデータを取り出す
-//            db.DBController.getFortune(birthday, uranaiDate, omikujiId);
-//            } catch (Exception e){
-//
-//            }
 
         Omikuji omikuji = null;
 
@@ -81,6 +74,8 @@ public class BirthdayInputServlet extends HttpServlet {
         ResultSet resultSet = null;
 
         try {
+
+//            omikujiDAO.selectCountFromOmikuji();
 
             // DBに接続
             connection = DBManager.getConnection();
@@ -106,6 +101,8 @@ public class BirthdayInputServlet extends HttpServlet {
                 while ((line = br.readLine()) != null) {
                     // lineをカンマで分割し、配列dataに設定
                     data = line.split(",");
+
+//                    omikujiDAO.insertOmikuji(String omikujiId, int count);
 
                     // DBに接続
                     connection = DBManager.getConnection();
@@ -135,6 +132,8 @@ public class BirthdayInputServlet extends HttpServlet {
                 omikujiId = Integer.toString(num);
             }
 
+            //omikujiDAO.selectFromOmikuji(Omikuji omikuji, String omikujiId)
+
             // DBに接続
             connection = DBManager.getConnection();
             // ステートメントを作成
@@ -154,20 +153,8 @@ public class BirthdayInputServlet extends HttpServlet {
                 omikuji.setAkinai(resultSet2.getString("akinai"));
                 omikuji.setGakumon(resultSet2.getString("gakumon"));
 
-                // DBに接続
-                connection = DBManager.getConnection();
-                // ステートメントを作成
-                preparedStatement = connection.prepareStatement(ConstantSQL.SQL_INSERT_RESULT);//resultDAO
-                //入力値をバインド
-                //getを使う
-                preparedStatement.setString(1, uranaiDate);
-                preparedStatement.setString(2, birthday);
-                preparedStatement.setString(3, omikuji.omikujiId);
-                preparedStatement.setString(4, "タチアナ");
-                preparedStatement.setString(5, "タチアナ");
+                resultDAO.insertResult(birthday, uranaiDate, omikujiId);
 
-                // SQL文を実行
-                int cnt4 = preparedStatement.executeUpdate();
             }
 
             OmikujiBean bean = new OmikujiBean();
