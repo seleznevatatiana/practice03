@@ -32,7 +32,6 @@ public class omikujiDAO {
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
             int count = resultSet.getInt("cnt");
-
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +50,7 @@ public class omikujiDAO {
         }
     }
 
-    public static void insertOmikuji(String omikujiId, int count)
+    public static void insertOmikuji(String omikujiId, int count, String[] data)
             throws ClassNotFoundException, SQLException {
 
         Connection connection = null;

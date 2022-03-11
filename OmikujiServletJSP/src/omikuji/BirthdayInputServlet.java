@@ -54,108 +54,24 @@ public class BirthdayInputServlet extends HttpServlet {
         //omikujiIdの宣言
         String omikujiId = "";
 
-        try {
-
         // 結果テーブルからデータを取り出す
        resultDAO.selectFromResult(birthday, uranaiDate, omikujiId);
-        } catch (Exception e){
-
-        }
 
         Omikuji omikuji = null;
+        int count;
 
-        //ファイル読み込みで使用する３つのクラス
-        FileInputStream fi = null;
-        InputStreamReader is = null;
-        BufferedReader br = null;
-
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-
-//            omikujiDAO.selectCountFromOmikuji();
-
-            // DBに接続
-            connection = DBManager.getConnection();
-            // ステートメントを作成
-            preparedStatement = connection.prepareStatement(ConstantSQL.SQL_SELECT_COUNT_FROM_OMIKUJI);
-            // SQL文を実行
-            resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            int count = resultSet.getInt("cnt");
+            omikujiDAO.selectCountFromOmikuji();
 
             if (count == 0) {
+                CSVReader.csvRead();
+                omikujiDAO.insertOmikuji(String omikujiId, int count):
+            } else {
+            omikujiDAO.selectFromOmikuji(Omikuji omikuji, String omikujiId);
 
-                //読み込みファイルのインスタンス生成
-                //ファイル名を指定する
-                fi = new FileInputStream("/OmikujiServletJSP/src/omikuji/fortune.csv"); //csvReaderを呼び出す(omikujiBeanを使う)
-                is = new InputStreamReader(fi);
-                br = new BufferedReader(is);
-
-                // readLineで一行ずつ読み込む
-                String line; // 読み込み行
-                String[] data; // 分割後のデータを保持する配列
-
-                while ((line = br.readLine()) != null) {
-                    // lineをカンマで分割し、配列dataに設定
-                    data = line.split(",");
-
-//                    omikujiDAO.insertOmikuji(String omikujiId, int count);
-
-                    // DBに接続
-                    connection = DBManager.getConnection();
-                    // ステートメントを作成
-                    preparedStatement = connection.prepareStatement(ConstantSQL.SQL_INSERT_OMIKUJI);//omikujiDAO
-                  //csvReaderを呼び出す
-                    //入力値をバインド
-                    preparedStatement.setString(1, data[2]);
-                    preparedStatement.setString(2, data[1]);
-                    preparedStatement.setString(3, data[3]);
-                    preparedStatement.setString(4, data[4]);
-                    preparedStatement.setString(5, data[5]);
-                    preparedStatement.setString(6, "タチアナ");
-                    preparedStatement.setString(7, "タチアナ");
-
-                    // SQL文を実行
-                    //代入演算子を使ってカウント
-                    count += preparedStatement.executeUpdate();
-                }
-            }
-
-            //データがなかった場合
-            if (omikujiId.isEmpty()) {
-
-                //ランダム表示
-                int num = new Random().nextInt(count + 1);
-                omikujiId = Integer.toString(num);
-            }
-
-            //omikujiDAO.selectFromOmikuji(Omikuji omikuji, String omikujiId)
-
-            // DBに接続
-            connection = DBManager.getConnection();
-            // ステートメントを作成
-            preparedStatement = connection.prepareStatement(ConstantSQL.SQL_SELECT_OMIKUJI);
-            //入力値をバインド
-            preparedStatement.setString(1, omikujiId);
-            // SQL文を実行
-            ResultSet resultSet2 = null;
-            resultSet2 = preparedStatement.executeQuery();
-
-            //resultsetから値の取り出し方
-            while (resultSet2.next()) {
-                omikuji = getInstance(resultSet2.getString("unsei_name"));
-                omikuji.setUnsei();
-                omikuji.setOmikujiId(omikujiId);
-                omikuji.setNegaigoto(resultSet2.getString("negaigoto"));
-                omikuji.setAkinai(resultSet2.getString("akinai"));
-                omikuji.setGakumon(resultSet2.getString("gakumon"));
 
                 resultDAO.insertResult(birthday, uranaiDate, omikujiId);
 
-            }
+
 
             OmikujiBean bean = new OmikujiBean();
             bean.setUnsei(omikuji.getUnsei());
@@ -165,25 +81,8 @@ public class BirthdayInputServlet extends HttpServlet {
 
             request.setAttribute("omikujiBean", bean);
             request.getRequestDispatcher("/WEB-INF/Omikuji.jsp").forward(request, response);
+            }
 
-        }
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            //クラス分けしたらtry-catchを消す
-            try{
-            // ResultSetをクローズ
-            DBManager.close(resultSet);
-            // Statementをクローズ
-            DBManager.close(preparedStatement);
-            // DBとの接続を切断
-            DBManager.close(connection);
-        } catch (Exception e) {
-         }
-        }
-    }
 
     //Omikujiクラスをnewするためのメソッド
     public static Omikuji getInstance(String unseimei) {
