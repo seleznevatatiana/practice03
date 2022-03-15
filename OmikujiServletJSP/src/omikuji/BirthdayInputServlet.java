@@ -64,14 +64,12 @@ public class BirthdayInputServlet extends HttpServlet {
 
             if (count == 0) {
                 CSVReader.csvRead();
-                omikujiDAO.insertOmikuji(String omikujiId, int count):
+                omikujiDAO.insertOmikuji(String omikujiId, int count, String[] data);
             } else {
             omikujiDAO.selectFromOmikuji(Omikuji omikuji, String omikujiId);
-
+            }
 
                 resultDAO.insertResult(birthday, uranaiDate, omikujiId);
-
-
 
             OmikujiBean bean = new OmikujiBean();
             bean.setUnsei(omikuji.getUnsei());
