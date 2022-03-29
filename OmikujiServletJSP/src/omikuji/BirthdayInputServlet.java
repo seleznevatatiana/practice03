@@ -1,15 +1,8 @@
 package omikuji;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,9 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import db.ConstantSQL;
-import db.DBManager;
 
 @WebServlet(urlPatterns = { "/omikujiInputBirthday" })
 
@@ -53,23 +43,32 @@ public class BirthdayInputServlet extends HttpServlet {
 
         //omikujiIdの宣言
         String omikujiId = "";
-
-        // 結果テーブルからデータを取り出す
-       resultDAO.selectFromResult(birthday, uranaiDate, omikujiId);
-
         Omikuji omikuji = null;
-        int count;
 
-            omikujiDAO.selectCountFromOmikuji();
+      //おみくじテーブルをチェックしてデータがなかったら入れる
+        //selectCountFromOmikuji
+        //count =0の場合、CSVReader.csvRead(insertOmikuji)
+        //上限の数(selectCountFromOmikuji)
+        //omikujiIdを取得する処理（ランダムにおみくじを引く）
+        // 結果テーブルからデータを取り出す
+        // omikujiIdを使っておみくじテーブルから結果を取得する
+        //resultテーブルに結果を登録する（resultテーブルに結果がない人だけ）
 
-            if (count == 0) {
-                CSVReader.csvRead();
-                omikujiDAO.insertOmikuji(String omikujiId, int count, String[] data);
-            } else {
-            omikujiDAO.selectFromOmikuji(Omikuji omikuji, String omikujiId);
+        omikujiId = resultDAO.selectFromResult(birthday, uranaiDate);
+        if (omikujiId == null) {
+            int count= omikujiDAO.selectCountFromOmikuji();
+                    if (count == 0) {
+                        CSVReader.csvRead();
+                    }
+        }
+            //データがなかった場合
+            if (omikujiId.isEmpty()) {
+                omikujiDAO.selectCountFromOmikuji();
+                omikujiDAO.selectFromOmikuji(omikuji);
             }
 
-                resultDAO.insertResult(birthday, uranaiDate, omikujiId);
+                    resultDAO.insertResult(birthday, uranaiDate);
+
 
             OmikujiBean bean = new OmikujiBean();
             bean.setUnsei(omikuji.getUnsei());

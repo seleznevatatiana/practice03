@@ -3,7 +3,6 @@ package omikuji;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Random;
 
 import db.DBManager;
@@ -15,12 +14,12 @@ public class omikujiDAO {
     public static String SQL_INSERT_OMIKUJI = "INSERT INTO omikuji  (omikuji_id, unsei_id, negaigoto, akinai, gakumon, updater, updated_date, creator, created_date) VALUES (?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp) ";
     public static String SQL_SELECT_OMIKUJI = "SELECT u.unsei_name, o.negaigoto, o.akinai, o.gakumon, o.updater, o.updated_date, o.creator, o.created_date  FROM omikuji o INNER JOIN unseimaster u ON o.unsei_id = u.unsei_id WHERE o.omikuji_id = ?";
 
-    public static void selectCountFromOmikuji()
-            throws ClassNotFoundException, SQLException {
+    public static int selectCountFromOmikuji()  {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        int count = 0;
 
         try {
 
@@ -31,7 +30,7 @@ public class omikujiDAO {
             // SQL文を実行
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            int count = resultSet.getInt("cnt");
+            count = resultSet.getInt("cnt");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -48,14 +47,15 @@ public class omikujiDAO {
             catch (Exception e) {
             }
         }
+        return count;
     }
 
-    public static void insertOmikuji(String omikujiId, int count, String[] data)
-            throws ClassNotFoundException, SQLException {
+    public static String insertOmikuji(int count, String[] data) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        String omikujiId ="";
 
         try {
             // DBに接続
@@ -72,7 +72,6 @@ public class omikujiDAO {
             preparedStatement.setString(6, "タチアナ");
             preparedStatement.setString(7, "タチアナ");
 
-            // SQL文を実行
             //代入演算子を使ってカウント
             count += preparedStatement.executeUpdate();
 
@@ -99,14 +98,15 @@ public class omikujiDAO {
             catch (Exception e) {
             }
         }
+        return omikujiId;
     }
 
-    public static void selectFromOmikuji(Omikuji omikuji, String omikujiId)
-            throws ClassNotFoundException, SQLException {
+    public static String selectFromOmikuji(Omikuji omikuji) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        String omikujiId ="";
 
         try {
 
@@ -145,5 +145,6 @@ public class omikujiDAO {
             catch (Exception e) {
             }
         }
+        return omikujiId;
     }
 }

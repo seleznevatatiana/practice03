@@ -3,7 +3,6 @@ package omikuji;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import db.DBManager;
 
@@ -13,12 +12,13 @@ public class resultDAO {
     public static String SQL_SELECT_FROM_RESULT = "SELECT omikuji_id FROM result WHERE birthday = ? AND uranai_date =?";
     public static String SQL_INSERT_RESULT = "INSERT INTO result VALUES (?, ?, ?, ?, current_timestamp, ?, current_timestamp)";
 
-    public static void selectFromResult(String birthday, String uranaiDate, String omikujiId)
-            throws ClassNotFoundException, SQLException {
+    public static String selectFromResult(String birthday, String uranaiDate) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        String omikujiId ="";
+
         try {
 
             //Resultテーブルから誕生日と占い日が一致する場合
@@ -34,6 +34,7 @@ public class resultDAO {
             rs = preparedStatement.executeQuery();
             if (rs == null) {
             }
+
             while (rs.next()) {
                 omikujiId = rs.getString("omikuji_id");
             }
@@ -51,16 +52,18 @@ public class resultDAO {
                 DBManager.close(connection);
             }
             catch (Exception e) {
+                e.printStackTrace();
             }
         }
+        return omikujiId;
     }
 
-    public static void insertResult(String birthday, String uranaiDate, String omikujiId)
-            throws ClassNotFoundException, SQLException {
+    public static String insertResult(String birthday, String uranaiDate) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        String omikujiId ="";
 
         try {
 
@@ -93,5 +96,6 @@ public class resultDAO {
             catch (Exception e) {
             }
         }
+        return omikujiId;
     }
 }
