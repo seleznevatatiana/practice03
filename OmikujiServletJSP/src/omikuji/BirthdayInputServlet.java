@@ -59,18 +59,16 @@ public class BirthdayInputServlet extends HttpServlet {
             int count= omikujiDAO.selectCountFromOmikuji();
                     if (count == 0) {
                         CSVReader.csvRead();
+                        omikujiDAO.selectFromOmikuji(omikujiId);
                     }
-
-
         }
-            //データがなかった場合
-            if (omikujiId.isEmpty()) { //調べる
-                omikujiDAO.selectCountFromOmikuji();
-                omikujiDAO.selectFromOmikuji(omikujiId);
-            }
+//            //データがなかった場合
+//            if (omikujiId.isEmpty()) { //調べる
+//                omikujiDAO.selectCountFromOmikuji();
+//                omikujiDAO.selectFromOmikuji(omikujiId);
+//            }
 
                     resultDAO.insertResult(birthday, uranaiDate);
-
 
             OmikujiBean bean = new OmikujiBean();
             bean.setUnsei(omikuji.getUnsei());
