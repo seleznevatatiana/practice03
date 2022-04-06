@@ -25,14 +25,11 @@ public class CSVReader {
         String line; // 読み込み行
         String[] data = null; // 分割後のデータを保持する配列
 
-        String omikujiId = "";
-        int count = 0;
-
         while ((line = br.readLine()) != null) {
             // lineをカンマで分割し、配列dataに設定
             data = line.split(",");
         }
-        omikujiDAO.insertOmikuji(count, data);
+        int count = omikujiDAO.insertOmikuji(data);
 
         } catch (Exception e) {
             e.printStackTrace();

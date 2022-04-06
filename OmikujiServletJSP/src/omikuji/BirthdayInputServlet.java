@@ -60,11 +60,13 @@ public class BirthdayInputServlet extends HttpServlet {
                     if (count == 0) {
                         CSVReader.csvRead();
                     }
+
+
         }
             //データがなかった場合
-            if (omikujiId.isEmpty()) {
+            if (omikujiId.isEmpty()) { //調べる
                 omikujiDAO.selectCountFromOmikuji();
-                omikujiDAO.selectFromOmikuji(omikuji);
+                omikujiDAO.selectFromOmikuji(omikujiId);
             }
 
                     resultDAO.insertResult(birthday, uranaiDate);

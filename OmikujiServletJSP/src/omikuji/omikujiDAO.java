@@ -50,12 +50,13 @@ public class omikujiDAO {
         return count;
     }
 
-    public static String insertOmikuji(int count, String[] data) {
+    public static int insertOmikuji(String[] data) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         String omikujiId ="";
+        int count = 0;
 
         try {
             // DBに接続
@@ -98,15 +99,16 @@ public class omikujiDAO {
             catch (Exception e) {
             }
         }
-        return omikujiId;
+        return count;
     }
 
-    public static String selectFromOmikuji(Omikuji omikuji) {
+    public static String selectFromOmikuji(String omikujiId) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String omikujiId ="";
+        Omikuji omikuji = null;
+
 
         try {
 
