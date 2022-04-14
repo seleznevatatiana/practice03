@@ -54,21 +54,15 @@ public class BirthdayInputServlet extends HttpServlet {
         // omikujiIdを使っておみくじテーブルから結果を取得する
         //resultテーブルに結果を登録する（resultテーブルに結果がない人だけ）
 
-        omikujiId = resultDAO.selectFromResult(birthday, uranaiDate);
+        omikujiId = ResultDAO.selectFromResult(birthday, uranaiDate);
         if (omikujiId == null) {
-            int count= omikujiDAO.selectCountFromOmikuji();
+            int count= OmikujiDAO.selectCountFromOmikuji();
                     if (count == 0) {
-                        CSVReader.csvRead();
-                        omikujiDAO.selectFromOmikuji(omikujiId);
+                         count = CSVReader.csvRead();
                     }
         }
-//            //データがなかった場合
-//            if (omikujiId.isEmpty()) { //調べる
-//                omikujiDAO.selectCountFromOmikuji();
-//                omikujiDAO.selectFromOmikuji(omikujiId);
-//            }
-
-                    resultDAO.insertResult(birthday, uranaiDate);
+        omikuji = OmikujiDAO.selectFromOmikuji(omikuji);
+        ResultDAO.insertResult(birthday, uranaiDate, omikujiId);
 
             OmikujiBean bean = new OmikujiBean();
             bean.setUnsei(omikuji.getUnsei());

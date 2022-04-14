@@ -7,13 +7,17 @@ import java.util.Random;
 
 import db.DBManager;
 
-public class omikujiDAO {
+public class OmikujiDAO {
 
     //SQL文を準備
     public static String SQL_SELECT_COUNT_FROM_OMIKUJI = "SELECT COUNT (*) AS CNT FROM omikuji";
     public static String SQL_INSERT_OMIKUJI = "INSERT INTO omikuji  (omikuji_id, unsei_id, negaigoto, akinai, gakumon, updater, updated_date, creator, created_date) VALUES (?, ?, ?, ?, ?, ?, current_timestamp, ?, current_timestamp) ";
     public static String SQL_SELECT_OMIKUJI = "SELECT u.unsei_name, o.negaigoto, o.akinai, o.gakumon, o.updater, o.updated_date, o.creator, o.created_date  FROM omikuji o INNER JOIN unseimaster u ON o.unsei_id = u.unsei_id WHERE o.omikuji_id = ?";
 
+    /**
+     * おみくじテーブルのデータ件数を取得
+     * @return count データ件数
+     */
     public static int selectCountFromOmikuji()  {
 
         Connection connection = null;
@@ -50,6 +54,10 @@ public class omikujiDAO {
         return count;
     }
 
+    /**
+     * おみくじテーブルにデータ登録
+     * @return count データ件数
+     */
     public static int insertOmikuji(String[] data) {
 
         Connection connection = null;
@@ -102,13 +110,16 @@ public class omikujiDAO {
         return count;
     }
 
-    public static String selectFromOmikuji(String omikujiId) {
+    /**
+     * おみくじテーブルから一つの結果を取得
+     * @return omikuji インスタンス
+     */
+    public static Omikuji selectFromOmikuji(Omikuji omikuji) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Omikuji omikuji = null;
-
+        String omikujiId = "";
 
         try {
 
@@ -147,6 +158,6 @@ public class omikujiDAO {
             catch (Exception e) {
             }
         }
-        return omikujiId;
+        return omikuji;
     }
 }

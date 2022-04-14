@@ -6,12 +6,16 @@ import java.sql.ResultSet;
 
 import db.DBManager;
 
-public class resultDAO {
+public class ResultDAO {
 
     //SQL文を準備
     public static String SQL_SELECT_FROM_RESULT = "SELECT omikuji_id FROM result WHERE birthday = ? AND uranai_date =?";
     public static String SQL_INSERT_RESULT = "INSERT INTO result VALUES (?, ?, ?, ?, current_timestamp, ?, current_timestamp)";
 
+    /**
+     * 結果テーブルからデータ取得
+     * @return omikujiId
+     */
     public static String selectFromResult(String birthday, String uranaiDate) {
 
         Connection connection = null;
@@ -32,9 +36,7 @@ public class resultDAO {
             // SQL文を実行
             ResultSet rs = null;
             rs = preparedStatement.executeQuery();
-            if (rs == null) {
-            }
-
+ 
             while (rs.next()) {
                 omikujiId = rs.getString("omikuji_id");
             }
@@ -58,12 +60,16 @@ public class resultDAO {
         return omikujiId;
     }
 
-    public static String insertResult(String birthday, String uranaiDate) {
+    /**
+     * 結果テーブルにデータを登録
+     * @return omikujiId
+     */
+    public static String insertResult(String birthday, String uranaiDate, String omikujiId) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String omikujiId ="";
+        omikujiId ="";
 
         try {
 
