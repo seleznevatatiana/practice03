@@ -42,26 +42,21 @@ public class BirthdayInputServlet extends HttpServlet {
         String uranaiDate = dateFormat.format(date);
 
         //omikujiIdの宣言
-        String omikujiId = "";
+        String omikujiId = null;
         Omikuji omikuji = null;
 
-      //おみくじテーブルをチェックしてデータがなかったら入れる
-        //selectCountFromOmikuji
-        //count =0の場合、CSVReader.csvRead(insertOmikuji)
-        //上限の数(selectCountFromOmikuji)
-        //omikujiIdを取得する処理（ランダムにおみくじを引く）
-        // 結果テーブルからデータを取り出す
-        // omikujiIdを使っておみくじテーブルから結果を取得する
-        //resultテーブルに結果を登録する（resultテーブルに結果がない人だけ）
-
         omikujiId = ResultDAO.selectFromResult(birthday, uranaiDate);
+        //結果がない場合はomikujiテーブルのデータチェックを実施
         if (omikujiId == null) {
             int count= OmikujiDAO.selectCountFromOmikuji();
+                    //データがない場合はcsvファイルから取得
                     if (count == 0) {
                          count = CSVReader.csvRead();
                     }
         }
+        //ランダムで引かれたomikujiIdを取得
         omikuji = OmikujiDAO.selectFromOmikuji(omikuji);
+        //resultテーブルにデータを登録
         ResultDAO.insertResult(birthday, uranaiDate, omikujiId);
 
             OmikujiBean bean = new OmikujiBean();

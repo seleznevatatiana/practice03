@@ -21,7 +21,7 @@ public class ResultDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String omikujiId ="";
+        String omikujiId =null;
 
         try {
 
@@ -36,7 +36,7 @@ public class ResultDAO {
             // SQL文を実行
             ResultSet rs = null;
             rs = preparedStatement.executeQuery();
- 
+
             while (rs.next()) {
                 omikujiId = rs.getString("omikuji_id");
             }
@@ -69,7 +69,7 @@ public class ResultDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        omikujiId ="";
+        omikujiId = null;
 
         try {
 

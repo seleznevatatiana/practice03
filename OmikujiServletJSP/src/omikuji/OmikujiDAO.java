@@ -63,7 +63,7 @@ public class OmikujiDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String omikujiId ="";
+        String omikujiId = null;
         int count = 0;
 
         try {
@@ -119,7 +119,7 @@ public class OmikujiDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String omikujiId = "";
+        String omikujiId = null;
 
         try {
 
