@@ -3,7 +3,6 @@ package omikuji;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Random;
 
 import db.DBManager;
 
@@ -84,13 +83,6 @@ public class OmikujiDAO {
             //代入演算子を使ってカウント
             count += preparedStatement.executeUpdate();
 
-            //データがなかった場合
-            if (omikujiId.isEmpty()) {
-
-                //ランダム表示
-                int num = new Random().nextInt(count + 1);
-                omikujiId = Integer.toString(num);
-            }
         }
         catch (Exception e) {
             e.printStackTrace();

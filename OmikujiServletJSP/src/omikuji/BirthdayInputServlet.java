@@ -3,6 +3,7 @@ package omikuji;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,6 +52,14 @@ public class BirthdayInputServlet extends HttpServlet {
                     //データがない場合はcsvファイルから取得
                     if (count == 0) {
                          count = CSVReader.csvRead();
+                    }
+
+                    //データがなかった場合
+                    if (omikujiId.isEmpty()) {
+
+                        //ランダム表示
+                        int num = new Random().nextInt(count + 1);
+                        omikujiId = Integer.toString(num);
                     }
         }
         //ランダムで引かれたomikujiIdを取得
