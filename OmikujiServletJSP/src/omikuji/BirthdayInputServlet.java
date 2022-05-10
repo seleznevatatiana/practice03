@@ -35,7 +35,6 @@ public class BirthdayInputServlet extends HttpServlet {
             dispatcher2.forward(request, response);
           }
 
-
         //占い日を指定
         Date date = new Date(); // 今日の日付
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
