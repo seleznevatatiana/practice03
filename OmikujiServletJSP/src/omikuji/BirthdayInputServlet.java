@@ -18,7 +18,7 @@ public class BirthdayInputServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
+            throws ServletException, IOException {
 
         // 日本語を表示するので、charsetにUTF-8を指定
         response.setContentType("text/html; charset=UTF-8");
@@ -34,7 +34,7 @@ public class BirthdayInputServlet extends HttpServlet {
             request.setAttribute("errorMsg", "正しい生年月日を入力してください。");
             RequestDispatcher dispatcher2 = request.getRequestDispatcher("/omikuji");
             dispatcher2.forward(request, response);
-          }
+        }
 
         //占い日を指定
         Date date = new Date(); // 今日の日付
@@ -48,34 +48,31 @@ public class BirthdayInputServlet extends HttpServlet {
         omikujiId = ResultDAO.selectFromResult(birthday, uranaiDate);
         //結果がない場合はomikujiテーブルのデータチェックを実施
         if (omikujiId == null) {
-            int count= OmikujiDAO.selectCountFromOmikuji();
-                    //データがない場合はcsvファイルから取得
-                    if (count == 0) {
-                         count = CSVReader.csvRead();
-                    }
+            int count = OmikujiDAO.selectCountFromOmikuji();
+            //データがない場合はcsvファイルから取得
+            if (count == 0) {
+                count = CSVReader.csvRead();
+            }
 
-                    //データがなかった場合
-                    if (omikujiId.isEmpty()) {
-
-                        //ランダム表示
-                        int num = new Random().nextInt(count + 1);
-                        omikujiId = Integer.toString(num);
-                    }
+            //ランダム表示
+            int num = new Random().nextInt(count + 1);
+            omikujiId = Integer.toString(num);
         }
+
         //ランダムで引かれたomikujiIdを取得
         omikuji = OmikujiDAO.selectFromOmikuji(omikuji);
         //resultテーブルにデータを登録
         ResultDAO.insertResult(birthday, uranaiDate, omikujiId);
 
-            OmikujiBean bean = new OmikujiBean();
-            bean.setUnsei(omikuji.getUnsei());
-            bean.setNegaigoto(omikuji.getNegaigoto());
-            bean.setAkinai(omikuji.getAkinai());
-            bean.setGakumon(omikuji.getGakumon());
+        OmikujiBean bean = new OmikujiBean();
+        bean.setUnsei(omikuji.getUnsei());
+        bean.setNegaigoto(omikuji.getNegaigoto());
+        bean.setAkinai(omikuji.getAkinai());
+        bean.setGakumon(omikuji.getGakumon());
 
-            request.setAttribute("omikujiBean", bean);
-            request.getRequestDispatcher("/WEB-INF/Omikuji.jsp").forward(request, response);
-            }
+        request.setAttribute("omikujiBean", bean);
+        request.getRequestDispatcher("/WEB-INF/Omikuji.jsp").forward(request, response);
+    }
 
     //Omikujiクラスをnewするためのメソッド
     public static Omikuji getInstance(String unseimei) {
