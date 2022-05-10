@@ -68,7 +68,6 @@ public class BirthdayInputServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/Omikuji.jsp").forward(request, response);
             }
 
-
     //Omikujiクラスをnewするためのメソッド
     public static Omikuji getInstance(String unseimei) {
         Omikuji omikuji = null;
