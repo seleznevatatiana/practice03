@@ -106,12 +106,12 @@ public class OmikujiDAO {
      * おみくじテーブルから一つの結果を取得
      * @return omikuji インスタンス
      */
-    public static Omikuji selectFromOmikuji(Omikuji omikuji) {
+    public static Omikuji selectFromOmikuji(Omikuji omikuji, String omikujiId) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String omikujiId = null;
+        omikujiId = null;
 
         try {
 

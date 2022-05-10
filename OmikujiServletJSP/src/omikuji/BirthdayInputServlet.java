@@ -60,7 +60,7 @@ public class BirthdayInputServlet extends HttpServlet {
         }
 
         //ランダムで引かれたomikujiIdを取得
-        omikuji = OmikujiDAO.selectFromOmikuji(omikuji);
+        omikuji = OmikujiDAO.selectFromOmikuji(omikuji, omikujiId);
         //resultテーブルにデータを登録
         ResultDAO.insertResult(birthday, uranaiDate, omikujiId);
 
