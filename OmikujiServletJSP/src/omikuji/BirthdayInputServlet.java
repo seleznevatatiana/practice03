@@ -45,7 +45,10 @@ public class BirthdayInputServlet extends HttpServlet {
         String omikujiId = null;
         Omikuji omikuji = null;
 
+        //入力した誕生日の結果がある場合はresultテーブルから取得
         omikujiId = ResultDAO.selectFromResult(birthday, uranaiDate);
+        //同じ誕生日と占い日を見極めるためのフラグ
+        boolean resultFlag = false;
         //結果がない場合はomikujiテーブルのデータチェックを実施
         if (omikujiId == null) {
             int count = OmikujiDAO.selectCountFromOmikuji();
@@ -57,12 +60,19 @@ public class BirthdayInputServlet extends HttpServlet {
             //ランダム表示
             int num = new Random().nextInt(count + 1);
             omikujiId = Integer.toString(num);
+            //resultテーブルにデータがある人を示す
+        }
+        else {
+            resultFlag = true;
         }
 
         //ランダムで引かれたomikujiIdを取得
-        omikuji = OmikujiDAO.selectFromOmikuji(omikuji, omikujiId);
-        //resultテーブルにデータを登録
-        ResultDAO.insertResult(birthday, uranaiDate, omikujiId);
+        omikuji = OmikujiDAO.selectFromOmikuji(omikujiId);
+        //falseの場合はデータ登録する
+        if (resultFlag == false) {
+            //resultテーブルにデータを登録
+            ResultDAO.insertResult(birthday, uranaiDate, omikujiId);
+        }
 
         OmikujiBean bean = new OmikujiBean();
         bean.setUnsei(omikuji.getUnsei());

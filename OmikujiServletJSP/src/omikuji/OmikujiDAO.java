@@ -62,7 +62,6 @@ public class OmikujiDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String omikujiId = null;
         int count = 0;
 
         try {
@@ -106,12 +105,12 @@ public class OmikujiDAO {
      * おみくじテーブルから一つの結果を取得
      * @return omikuji インスタンス
      */
-    public static Omikuji selectFromOmikuji(Omikuji omikuji, String omikujiId) {
+    public static Omikuji selectFromOmikuji(String omikujiId) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        omikujiId = null;
+        Omikuji omikuji = null;
 
         try {
 

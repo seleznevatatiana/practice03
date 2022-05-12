@@ -69,7 +69,6 @@ public class ResultDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        omikujiId = null;
 
         try {
 
