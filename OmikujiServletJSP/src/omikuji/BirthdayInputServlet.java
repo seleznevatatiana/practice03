@@ -43,33 +43,34 @@ public class BirthdayInputServlet extends HttpServlet {
 
         //omikujiIdの宣言
         String omikujiId = null;
-        Omikuji omikuji = null;
 
         //入力した誕生日の結果がある場合はresultテーブルから取得
         omikujiId = ResultDAO.selectFromResult(birthday, uranaiDate);
-        //同じ誕生日と占い日を見極めるためのフラグ
+
+        //データ有無のチェック
+        int count = OmikujiDAO.selectCountFromOmikuji();
+        //データがない場合はcsvファイルから取得
+        if (count == 0) {
+            String realPath = this.getServletContext().getRealPath("/WEB-INF/fortune.csv");
+            count = CSVReader.csvRead(realPath);
+        }
+        // resultデータ有無フラグ
         boolean resultFlag = false;
+
         //結果がない場合はomikujiテーブルのデータチェックを実施
         if (omikujiId == null) {
-            int count = OmikujiDAO.selectCountFromOmikuji();
-            //データがない場合はcsvファイルから取得
-            if (count == 0) {
-                count = CSVReader.csvRead();
-            }
-
-            //ランダム表示
+            // ランダムの数字を取得
             int num = new Random().nextInt(count + 1);
             omikujiId = Integer.toString(num);
-            //resultテーブルにデータがある人を示す
         }
-        else {
+        else { //resultテーブルにデータがある人を示す
             resultFlag = true;
         }
 
-        //ランダムで引かれたomikujiIdを取得
-        omikuji = OmikujiDAO.selectFromOmikuji(omikujiId);
+        // omikujiIdを元におみくじ情報を取得
+        Omikuji omikuji = OmikujiDAO.selectFromOmikuji(omikujiId);
         //falseの場合はデータ登録する
-        if (resultFlag == false) {
+        if (!resultFlag) {
             //resultテーブルにデータを登録
             ResultDAO.insertResult(birthday, uranaiDate, omikujiId);
         }

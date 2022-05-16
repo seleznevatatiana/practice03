@@ -10,7 +10,7 @@ public class CSVReader {
      * csvファイルからデートを取得し、おみくじテーブルに登録
      * @return count データ件数
      */
-    public static int csvRead() {
+    public static int csvRead(String realPath) {
 
         //ファイル読み込みで使用する３つのクラス
         FileInputStream fi = null;
@@ -22,7 +22,7 @@ public class CSVReader {
 
             //読み込みファイルのインスタンス生成
             //ファイル名を指定する
-            fi = new FileInputStream("/OmikujiServletJSP/src/omikuji/fortune.csv");
+            fi = new FileInputStream(realPath);
             is = new InputStreamReader(fi);
             br = new BufferedReader(is);
 
