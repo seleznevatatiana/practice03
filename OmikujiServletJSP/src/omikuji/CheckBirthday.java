@@ -12,6 +12,9 @@ public class CheckBirthday {
      */
     public boolean checkBirthday(String birthday) {
       try{
+          if (birthday == null || !birthday.matches("[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])") {
+              return false;
+          }
         // 日付チェック
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         sdf.setLenient(false);
@@ -23,16 +26,18 @@ public class CheckBirthday {
         return false;
       }
     }
-
-//    public static boolean isValid(String text) {
-//        if (text == null || !text.matches("[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])")
+//
+//    public static boolean checkBirthday (String birthday) {
+//        if (birthday == null || !birthday.matches("[0-9]{4}/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])") {
 //            return false;
+//        }
+//
 //        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 //        df.setLenient(false);
 //        try {
-//            df.parse(text);
+//            df.parse(birthday);
 //            return true;
-//        } catch (ParseException ex) {
+//        } catch (Exception ex) {
 //            return false;
 //        }
 //    }
