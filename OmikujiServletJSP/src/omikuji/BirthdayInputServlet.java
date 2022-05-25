@@ -31,9 +31,10 @@ public class BirthdayInputServlet extends HttpServlet {
         check = checkBirthday.checkBirthday(birthday);
 
         if (!check) {
-            request.setAttribute("errorMsg", "正しい生年月日を入力してください。");
+            request.setAttribute("errorMsg", "*正しい生年月日を入力してください。");
             RequestDispatcher dispatcher2 = request.getRequestDispatcher("/omikuji");
             dispatcher2.forward(request, response);
+            return;
         }
 
         //占い日を指定
