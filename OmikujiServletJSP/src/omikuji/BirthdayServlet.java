@@ -13,13 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 public class BirthdayServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // 日本語を表示するので、charsetにUTF-8を指定
         response.setContentType("text/html; charset=UTF-8");
 
         PrintWriter out = response.getWriter();
-
 
         // htmlを出力
         out.println("<!DOCTYPE html>");
@@ -44,4 +43,8 @@ public class BirthdayServlet extends HttpServlet {
         out.println("</html>");
 
     }
-}
+    public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
+    }
+

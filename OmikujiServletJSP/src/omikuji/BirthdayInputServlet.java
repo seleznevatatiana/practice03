@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class BirthdayInputServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // 日本語を表示するので、charsetにUTF-8を指定
