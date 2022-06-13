@@ -35,9 +35,7 @@ public class CSVReader {
                 data = line.split(",");
                 OmikujiDAO.insertOmikuji(data);
                 count++;
-
             }
-
         }
         catch (Exception e) {
             e.printStackTrace();

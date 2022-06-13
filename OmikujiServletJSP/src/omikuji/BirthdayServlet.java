@@ -1,4 +1,5 @@
 package omikuji;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -8,12 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet ("/omikuji")
+@WebServlet("/omikuji")
 
 public class BirthdayServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // 日本語を表示するので、charsetにUTF-8を指定
         response.setContentType("text/html; charset=UTF-8");
@@ -33,7 +34,7 @@ public class BirthdayServlet extends HttpServlet {
         out.println("<input type=\"text\" name=\"birthday\" placeholder=\"19910101\">");
         String errorMsg = (String) request.getAttribute("errorMsg");
         if (errorMsg != null) {
-          out.println("<p>" + errorMsg + "</p>");
+            out.println("<p>" + errorMsg + "</p>");
         }
         out.println("<br>");
         out.println("<br>");
@@ -43,8 +44,8 @@ public class BirthdayServlet extends HttpServlet {
         out.println("</html>");
 
     }
-    public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
-    }
-
+}

@@ -17,7 +17,7 @@ public class OmikujiDAO {
      * おみくじテーブルのデータ件数を取得
      * @return count データ件数
      */
-    public static int selectCountFromOmikuji()  {
+    public static int selectCountFromOmikuji() {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;

@@ -21,7 +21,7 @@ public class ResultDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String omikujiId =null;
+        String omikujiId = null;
 
         try {
 
@@ -87,9 +87,11 @@ public class ResultDAO {
             // SQL文を実行
             int cnt4 = preparedStatement.executeUpdate();
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             try {
                 // ResultSetをクローズ
                 DBManager.close(resultSet);

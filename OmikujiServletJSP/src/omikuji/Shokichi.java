@@ -1,10 +1,9 @@
 package omikuji;
 
-public class Shokichi extends  Omikuji{
+public class Shokichi extends Omikuji {
 
     @Override
     public void setUnsei() {
-      unsei = "小吉";
+        unsei = "小吉";
     }
 }
-

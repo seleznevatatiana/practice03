@@ -10,19 +10,20 @@ public class CheckBirthday {
      * @return true:正しい日付　false:不正な日付
      */
     public boolean checkBirthday(String birthday) {
-          if (birthday == null || !birthday.matches("[0-9]{4}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])")) {
-              return false;
-          }
+        if (birthday == null || !birthday.matches("[0-9]{4}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])")) {
+            return false;
+        }
         // 日付チェック
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         sdf.setLenient(false);//調べる
 
-        try{
-        sdf.parse(birthday);
-        return true;
+        try {
+            sdf.parse(birthday);
+            return true;
 
-      }catch(Exception ex){
-        return false;
-      }
-      }
+        }
+        catch (Exception ex) {
+            return false;
+        }
+    }
 }

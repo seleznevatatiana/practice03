@@ -82,5 +82,4 @@ public class DBManager {
             resultSet.close();
         }
     }
-
 }
